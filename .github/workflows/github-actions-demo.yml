@@ -19,7 +19,7 @@ on:
 
 jobs:
   Build:
-    # The 'ubuntu-latest' label currently points to Ubuntu 24.04 LTS
+    # Uses the latest Ubuntu release
     runs-on: ubuntu-latest
     
     steps:
@@ -32,5 +32,5 @@ jobs:
           echo "Current branch: ${{ github.ref_name }}"
 
       - name: List all files in the repository
-        # Recursively lists all files to ensure full repository visibility
-        run: ls -R
+        # lists all files
+        run: tree
