@@ -1,0 +1,36 @@
+name: GitHub Actions Demo
+
+on:
+  push:
+    branches:
+      - main
+    # Does not trigger when changes are only in the .github folder
+    paths-ignore:
+      - '.github/**'
+  pull_request:
+    # Triggers on PRs with main as the base (target) branch
+    branches:
+      - main
+  schedule:
+    # Every Sunday at 6:15 UTC
+    - cron: '15 6 * * 0'
+  # Allows manual triggering from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  Build:
+    # The 'ubuntu-latest' label currently points to Ubuntu 24.04 LTS
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Output event and branch info
+        run: |
+          echo "Triggering event: ${{ github.event_name }}"
+          echo "Current branch: ${{ github.ref_name }}"
+
+      - name: List all files in the repository
+        # Recursively lists all files to ensure full repository visibility
+        run: ls -R
